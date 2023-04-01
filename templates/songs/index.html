@@ -1,0 +1,50 @@
+{% extends "paging.html" %}
+
+{% block content %}
+<div class="card" style="margin-top: 20px">
+    <div class="card-header text-center">
+        Songs
+    </div>
+    <div class="card-body text-center">
+        <table class="table table-bordered table-responsive" id="songs-table" style="word-break: break-all;margin: auto">
+            <thead>
+                <tr>
+                    <th scope="col" style="padding: 3px">ID</th>
+                    <th scope="col" style="padding: 5px">Song Name</th>
+                    <th scope="col" style="padding: 5px">Genre</th>
+                    <th scope="col" style="padding: 5px">Length</th>
+                    <th scope="col" style="padding: 5px">No. of plays</th>
+                    <th scope="col" style="padding: 5px">Album name</th>
+                    <th scope="col" style="padding: 5px">Release year</th>
+                    <th scope="col" style="padding: 5px">Created at</th>
+                    <th scope="col" style="padding: 10px">Updated at</th>
+                    <th scope="col" style="padding: 10px">Update</th>
+                    <th scope="col" style="padding: 10px">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for song in songs.items %}
+                <tr>
+                    <td>{{ song.id_s }}</td>
+                    <td style="padding: 2px">{{ song.name }}</td>
+                    <td>{{ song.genre.title }}</td>
+                    <td>{{ song.length }}</td>
+                    <td>{{ "{:,.2f}".format(song.number_of_plays) }}</td>
+                    <td>{{ song.album.title }}</td>
+                    <td>{{ song.release_year }}</td>
+                    <td style="padding: 5px">{{ song.created_at.strftime("%d.%m.%Y %H:%M:%S")  }}</td>
+                    <td style="padding: 5px">{{ song.updated_at.strftime("%d.%m.%Y %H:%M:%S") }}</td>
+                    <td style="padding: 5px"><a href="{{ url_for("songs.update_view", id=song.id_s) }}" class="btn btn-primary">Update</a></td>
+                    <td style="padding: 5px"><a href="#" class="btn btn-danger" onclick="$('#song-delete--{{ song.id_s }}').submit()">Delete</a></td>
+                    <form action="{{ url_for("songs.delete_record", id=song.id_s)}}" method="POST" id="song-delete--{{ song.id_s }}">
+                    </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<p class="text-left mt-3">
+    <a href="{{ url_for("songs.add_view") }}" class="btn btn-primary">Add song</a>
+</p>
+{% endblock %}
