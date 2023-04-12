@@ -39,6 +39,7 @@ def update_view(id):
         song.number_of_plays = request.form["number_of_plays"]
         song.album_id = request.form["album"]
         song.release_year = request.form["release_year"]
+        song.url_cover = request.form["url_cover"]
         song.updated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         song.verified = True
         db.session.add(song)
@@ -70,13 +71,14 @@ def add_view():
         song_number_plays = request.form["number_of_plays"]
         song_album_id = request.form["album"]
         song_release_year = request.form["release_year"]
+        song_url_cover = request.form["url_cover"]
         song_created_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         song_updated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        if song_album_id == "NULL":
+        if song_album_id == "NULL" or song_url_cover == "NULL":
             song = Songs(name=song_name, genre_id=song_genre_id, length=song_length, number_of_plays=song_number_plays, release_year=song_release_year, created_at=song_created_at ,updated_at=song_updated_at)
         else:
-            song = Songs(name=song_name, genre_id=song_genre_id, length=song_length, number_of_plays=song_number_plays, album_id=song_album_id,release_year=song_release_year, created_at=song_created_at ,updated_at=song_updated_at)
+            song = Songs(name=song_name, genre_id=song_genre_id, length=song_length, urL_cover = song_url_cover,number_of_plays=song_number_plays, album_id=song_album_id,release_year=song_release_year, created_at=song_created_at ,updated_at=song_updated_at)
 
         db.session.add(song)
 

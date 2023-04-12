@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div class="card">
+    <div class="card" style="margin-top: 20px">
         <div class="card-header text-center">
             Editing <span style="font-weight: bold">{{ song.name }}</span>
         </div>
@@ -17,9 +17,9 @@
                     <select class="form-control" name="genre" id="genre">
                         <option value="{{ song.genre.id_g }}">{{ song.genre.title }}</option>
                         {% for genre in genres %}
-                        {% if genre.id_g != song.genre_id %}
-                            <option value="{{ genre.id_g }}">{{ genre.title }}</option>
-                        {% endif %}
+                            {% if genre.id_g != song.genre_id %}
+                                <option value="{{ genre.id_g }}">{{ genre.title }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
@@ -29,22 +29,28 @@
                 </div>
                 <div class="form-group">
                     <label for="numberOfSongs">Number Of Plays</label>
-                    <input name="number_of_plays" id="number_of_plays" type="number" class="form-control" value="{{ song.number_of_plays }}" required>
+                    <input name="number_of_plays" id="number_of_plays" type="number" class="form-control"
+                           value="{{ song.number_of_plays }}" required>
                 </div>
                 <div class="form-group">
                     <label for="albumSelect">Album</label>
                     <select class="form-control" name="album" id="album">
                         <option value="{{ song.album.id_a }}">{{ song.album.title }}</option>
                         {% for album in albums %}
-                        {% if album.id_a != song.album_id %}
-                            <option value="{{ album.id_a }}">{{ album.title }}</option>
-                        {% endif %}
+                            {% if album.id_a != song.album_id %}
+                                <option value="{{ album.id_a }}">{{ album.title }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="releaseYear">Release Year</label>
-                    <input name="release_year" id="release_year" type="number" class="form-control" value="{{ song.release_year }}" required>
+                    <input name="release_year" id="release_year" type="number" class="form-control"
+                           value="{{ song.release_year }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="coverURL">Cover URL</label>
+                    <input name="url_cover" id="url_cover" type="url" class="form-control" value="{{ song.url_cover }}">
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin-top: 10px">Update</button>
             </form>
