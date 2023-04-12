@@ -15,23 +15,40 @@
                 <img src="{{ songs[0].url_cover }}" class="d-block w-20" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>{{ songs[0].name }}</h5>
-                    {% if songs[0].album %}
-                    <p class="text-secondary"><strong>{{ songs[0].album.author.name }}</strong> - {{ songs[0].album.title }}</p>
-                    {% endif %}
+                     <ul>
+                        {% for author in  songs[0].authors %}
+                            <li class="text-secondary"> <strong>{{ author.name }}</strong></li>
+                        {% endfor %}
+                    </ul>
+
+                    {% if  songs[0].album %}
+                        <p class="text-secondary">Album: {{  songs[0].album.title }}</p>
+                     {% endif %}
                 </div>
             </div>
             {% for song in songs[1:] %}
                 <div class="carousel-item">
                     {% if song.url_cover %}
-                        <img src="{{ song.url_cover }}" class="d-block w-20" alt="Song cover photo">
+                        <img src="{{ song.url_cover }}" class="d-block w-20" width="300em" alt="Song cover photo">
+                    {% elif song.album.url_cover %}
+                        <img src="{{ song.album.url_cover }}" class="d-block w-20" width="300em" alt="Album cover photo">
                     {% else %}
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png" class="d-block w-20" width="300em" alt="No cover photo">
                     {% endif %}
                     <div class="carousel-caption d-none d-md-block">
                         <h5>{{ song.name }}</h5>
-                        {% if song.album %}
-                        <p class="text-secondary"><strong>{{ song.album.author.name }}</strong> - {{ song.album.title }}</p>
-                        {% endif %}
+
+                    <ul>
+                        {% for author in song.authors %}
+                            <li class="text-secondary"> <strong>{{ author.name }}</strong></li>
+                        {% endfor %}
+                    </ul>
+
+                    {% if song.album %}
+                        <p class="text-secondary">Album: {{ song.album.title }}</p>
+                     {% endif %}
+
+
                     </div>
                 </div>
             {% endfor %}

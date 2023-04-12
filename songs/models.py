@@ -1,6 +1,7 @@
 from db import db
-from sqlalchemy.orm import relationship
 from albums.models import Albums
+from authors.models import Authors
+from authors_songs.tables import authors_songs
 
 
 class Songs(db.Model):
@@ -16,6 +17,7 @@ class Songs(db.Model):
     url_cover = db.Column(db.VARCHAR(2083), nullable=True)
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
+    authors = db.relationship('Authors', secondary='authors_songs', backref=db.backref('songs', lazy=True))
 
     def __repr__(self):
         return f'<Song {self.id_s} {self.name}>'
