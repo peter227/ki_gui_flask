@@ -10,6 +10,7 @@ class Albums(db.Model):
     length_sec = db.Column(db.Integer, nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey(Authors.id_a), nullable=True)
     author = db.relationship('Authors', lazy='select', backref=db.backref('Authors', lazy='joined'))
+    url_cover = db.Column(db.VARCHAR(2083), nullable=True)
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
 

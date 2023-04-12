@@ -9,7 +9,7 @@ from app import db
 
 @bp.route("/")
 def index_view():
-    authors = db.paginate(db.select(Authors).order_by(Authors.id_a), per_page=10)
+    authors = db.paginate(db.select(Authors).order_by(Authors.id_a), per_page=3)
 
     return render_template("authors/index.html", authors=authors, title="SQLAlchemyORM - Authors", name=authors,
                            url='authors.index_view')
@@ -44,6 +44,18 @@ def update_view(id):
     return render_template("authors/update.html", author=author, nationalities=nationalities)
 
 
+@bp.route("/inspect/<id>", methods=["POST", "GET"])
+def inspect_view(id):
+    try:
+        author = db.session.execute(db.select(Authors).filter_by(id_a=id)).first()
+        nationalities = db.session.execute(db.select(Nationalities)).unique().all()
+    except Exception:
+        flash("This author does not exist", "error")
+        return redirect(url_for("authors.index_view"))
+
+    return render_template("authors/inspect.html", author=author, nationalities=nationalities)
+
+
 @bp.route("/add", methods=["POST", "GET"])
 def add_view():
     if request.method == "POST":
@@ -51,11 +63,14 @@ def add_view():
         author_nationality = request.form["nationality"]
         author_number_of_songs = request.form["number_of_songs"]
         author_number_of_albums = request.form["number_of_albums"]
+        author_url_photo = request.form["url_photo"]
+        author_short_description = request.form["short_description"]
         author_created_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         author_updated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         author = Authors(name=author_name, nationality_id=author_nationality, number_of_songs=author_number_of_songs,
-                         number_of_albums=author_number_of_albums, created_at=author_created_at,
+                         number_of_albums=author_number_of_albums, url_photo=author_url_photo,
+                         short_description=author_short_description, created_at=author_created_at,
                          updated_at=author_updated_at)
 
         db.session.add(author)
@@ -72,7 +87,7 @@ def add_view():
 @bp.route("/delete/<id>", methods=["POST", "DELETE"])
 def delete_record(id):
     if not id:
-        return redirect(url_for("albums.index_view"))
+        return redirect(url_for("authors.index_view"))
     try:
         author = db.session.execute(db.select(Authors).filter_by(id_a=id)).first()
     except Exception:

@@ -9,5 +9,7 @@ class Authors(db.Model):
     nationality = relationship("Nationalities", lazy="select", backref=db.backref('Nationalities', lazy='joined'))
     number_of_songs = db.Column(db.Integer, nullable=False)
     number_of_albums = db.Column(db.Integer, nullable=False)
+    url_photo = db.Column(db.VARCHAR(2083), nullable=True)
+    short_description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)

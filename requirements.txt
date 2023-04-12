@@ -10,3 +10,4 @@ Werkzeug==2.2.3
 wheel==0.38.4
 
 SQLAlchemy~=2.0.8
+alembic~=1.10.3

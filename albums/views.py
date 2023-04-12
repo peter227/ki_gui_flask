@@ -9,10 +9,21 @@ from albums.models import Authors
 
 @bp.route("/")
 def index_view():
-    albums = db.paginate(db.select(Albums).order_by(Albums.id_a), per_page=10)
+    albums = db.paginate(db.select(Albums).order_by(Albums.id_a), per_page=3)
 
     return render_template("albums/index.html", albums=albums, title="SQLAlchemyORM - Albums", name=albums,
                            url='albums.index_view')
+
+
+@bp.route("/inspect/<id>", methods=["POST", "GET"])
+def inspect_view(id):
+    try:
+        album = db.session.execute(db.select(Albums).filter_by(id_a=id)).first()
+    except Exception:
+        flash("This author does not exist", "error")
+        return redirect(url_for("albums.index_view"))
+
+    return render_template("albums/inspect.html", album=album)
 
 
 @bp.route("/edit/<id>", methods=["POST", "GET"])

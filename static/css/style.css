@@ -5,3 +5,9 @@
 .main-menu:hover{
     box-shadow: 0 3px 8px rgb(0 0 0 / 0.7);
 }
+.author-name{
+    text-decoration: auto;
+}
+.author-name:hover{
+    font-size: 105%;
+}

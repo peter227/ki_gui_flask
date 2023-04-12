@@ -2,6 +2,7 @@ import datetime
 
 from flask import (render_template, request, url_for, redirect, flash)
 
+from authors.models import Authors
 from songs import bp
 
 from songs.models import Songs
@@ -67,6 +68,14 @@ def add_view():
             song = Songs(name=song_name, genre_id=song_genre_id, length=song_length, number_of_plays=song_number_plays, album_id=song_album_id,release_year=song_release_year, created_at=song_created_at ,updated_at=song_updated_at)
 
         db.session.add(song)
+
+        authors = request.form.getlist("author")
+        print(authors)
+        for author_id in authors:
+            author = Authors.query.filter_by(id_a=author_id).first()
+            if author:
+                song.authors.append(author)
+
         db.session.commit()
 
         flash("Song was successfully added to database!", "success")
@@ -75,7 +84,8 @@ def add_view():
     else:
         genres = Genres.query.all()
         albums = Albums.query.all()
-        return render_template("songs/add.html", albums=albums, genres=genres)
+        authors = Authors.query.all()
+        return render_template("songs/add.html", albums=albums, genres=genres, authors=authors)
 
 
 @bp.route("/delete/<id>", methods=["POST", "DELETE"])
