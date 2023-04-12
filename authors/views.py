@@ -4,7 +4,7 @@ from flask import (render_template, request, url_for, redirect, flash)
 from authors import bp
 from authors.models import Authors
 from nationalities.models import Nationalities
-from app import db
+from db import db
 
 
 @bp.route("/")

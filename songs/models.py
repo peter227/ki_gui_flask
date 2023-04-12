@@ -1,4 +1,4 @@
-from app import db
+from db import db
 from sqlalchemy.orm import relationship
 from albums.models import Albums
 

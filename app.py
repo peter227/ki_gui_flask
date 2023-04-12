@@ -17,8 +17,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'mysql://user:toor@localhost:3306/ki_gui_db'
 # Pomoci pymysql python driveru v pripade, ze je problem s mysql driverem
-# app.config['SQLALCHEMY_DATABASE_URI'] = \
-#      'mysql+pymysql://user:toor@localhost:3306/ki_gui_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+     'mysql+pymysql://user:toor@localhost:3306/ki_gui_db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config.from_mapping(SECRET_KEY="dev")
 

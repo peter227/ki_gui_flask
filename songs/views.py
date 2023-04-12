@@ -8,7 +8,7 @@ from songs import bp
 from songs.models import Songs
 from genres.models import Genres
 from albums.models import Albums
-from app import db
+from db import db
 
 
 @bp.route("/")

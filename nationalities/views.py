@@ -1,7 +1,7 @@
 from flask import (render_template)
 from nationalities import bp
 from nationalities.models import Nationalities
-from app import db
+from db import db
 
 
 @bp.route('/')

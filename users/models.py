@@ -1,4 +1,4 @@
-from app import db
+from db import db
 from genders.models import Genders
 from sqlalchemy.orm import relationship
 

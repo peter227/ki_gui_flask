@@ -1,6 +1,6 @@
 from flask import (render_template)
 from genres import bp
-from app import db
+from db import db
 from genres.models import Genres
 
 

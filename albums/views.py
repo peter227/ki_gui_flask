@@ -2,7 +2,7 @@ import datetime
 
 from flask import (render_template, request, url_for, redirect, flash)
 from albums import bp
-from app import db
+from db import db
 from albums.models import Albums
 from albums.models import Authors
 
