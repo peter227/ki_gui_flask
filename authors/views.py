@@ -33,6 +33,7 @@ def update_view(id):
         author[0].nationality_id = request.form["nationality"]
         author[0].number_of_songs = request.form["number_of_songs"]
         author[0].number_of_albums = request.form["number_of_albums"]
+        author[0].url_photo = request.form["url_photo"]
         author[0].updated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         author[0].verified = True
         db.session.add(author[0])
@@ -68,10 +69,17 @@ def add_view():
         author_created_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         author_updated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        author = Authors(name=author_name, nationality_id=author_nationality, number_of_songs=author_number_of_songs,
-                         number_of_albums=author_number_of_albums, url_photo=author_url_photo,
+        if author_url_photo == "NULL":
+            author = Authors(name=author_name, nationality_id=author_nationality, number_of_songs=author_number_of_songs,
+                         number_of_albums=author_number_of_albums,
                          short_description=author_short_description, created_at=author_created_at,
                          updated_at=author_updated_at)
+        else:
+            author = Authors(name=author_name, nationality_id=author_nationality,
+                             number_of_songs=author_number_of_songs,
+                             number_of_albums=author_number_of_albums, url_photo=author_url_photo,
+                             short_description=author_short_description, created_at=author_created_at,
+                             updated_at=author_updated_at)
 
         db.session.add(author)
         db.session.commit()

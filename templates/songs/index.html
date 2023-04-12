@@ -13,12 +13,12 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active text-center">
-                <h5>{{ songs[0].name }}</h5>
+                <h5><a href="{{ url_for("songs.inspect_view", id=songs[0].id_s) }}" style="text-decoration: none; color: unset">{{ songs[0].name }}</a></h5>
                 {% for author in  songs[0].authors %}
-                    <p class="text-secondary" style="margin-top: 5px"><strong>{{ author.name }}</strong></p>
+                    <p class="text-secondary" style="margin-top: 5px"><strong><a href="{{ url_for("authors.inspect_view", id=author.id_a) }}" style="text-decoration: none;color: unset">{{ author.name }}</a></strong></p>
                 {% endfor %}
                 {% if  songs[0].album %}
-                    <p class="text-secondary">Album: {{ songs[0].album.title }}</p>
+                    <p class="text-secondary">Album: <a href="{{ url_for("albums.inspect_view", id=songs[0].album.id_a) }}" style="text-decoration: none; color: unset">{{ songs[0].album.title }}</a></p>
                 {% endif %}
                 <img src="{{ songs[0].url_cover }}" class="d-block" alt="..."
                      style="margin-left: auto;margin-right: auto;opacity: 0.9" width="300">
@@ -33,12 +33,12 @@
             </div>
             {% for song in songs[1:] %}
                 <div class="carousel-item text-center">
-                    <h5>{{ song.name }}</h5>
+                    <h5><a href="{{ url_for("songs.inspect_view", id=song.id_s) }}" style="text-decoration: none;color: unset">{{ song.name }}</a></h5>
                     {% for author in  song.authors %}
-                        <p class="text-secondary"><strong>{{ author.name }}</strong></p>
+                        <p class="text-secondary"><strong><a href="{{ url_for("authors.inspect_view", id=author.id_a) }}" style="text-decoration: none;color: unset">{{ author.name }}</a></strong></p>
                     {% endfor %}
                     {% if  songs[0].album %}
-                        <p class="text-secondary">Album: {{ song.album.title }}</p>
+                        <p class="text-secondary">Album: <a href="{{ url_for("albums.inspect_view", id=song.album.id_a) }}" style="text-decoration: none; color: unset">{{ song.album.title }}</a></p>
                     {% endif %}
                     {% if song.url_cover %}
                         <img src="{{ song.url_cover }}" class="d-block"
