@@ -35,7 +35,11 @@ def update_view(id):
         song.genre_id = request.form["genre"]
         song.length = request.form["length"]
         song.number_of_plays = request.form["number_of_plays"]
-        song.album_id = request.form["album"]
+        if song.album_id is "None":
+            print(song.album_id)
+            song.album_id = None
+        else:
+            song.album_id = request.form["album"]
         song.release_year = request.form["release_year"]
         song.url_cover = request.form["url_cover"]
         song.updated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
