@@ -11,3 +11,4 @@ wheel==0.40.0
 SQLAlchemy==2.0.9
 alembic~=1.10.3
 Flask-Migrate==4.0.4
+mysqlclient==2.1.1
