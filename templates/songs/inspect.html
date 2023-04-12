@@ -9,10 +9,19 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Release year: {{ song[0].release_year }}</li>
-            <li class="list-group-item">Number of songs: {{ song[0].number_of_plays }}</li>
-            <li class="list-group-item">Length in sec: {{ song[0].album_id }}</li>
-            <li class="list-group-item">Author: {{ song[0].length }}</li>
-            <li class="list-group-item">Author: {{ song[0].genre_id }}</li>
+            <li class="list-group-item">Number of plays: {{ song[0].number_of_plays }}</li>
+            <li class="list-group-item">Length in sec: {{ song[0].length }}</li>
+            <li class="list-group-item">Author:
+                <ul>
+                    {% for author in song[0].authors %}
+                    <li>{{ author.name }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="list-group-item">Genre: {{ song[0].genre.title }}</li>
+            {% if song[0].album %}
+                <li class="list-group-item">Album: {{ song[0].album.title }}</li>
+            {% endif %}
         </ul>
     </div>
 
