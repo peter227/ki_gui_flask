@@ -16,7 +16,7 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h5>{{ songs[0].name }}</h5>
                     {% if songs[0].album %}
-                    <p class="text-secondary">{{ songs[0].album.author.name }} - {{ songs[0].album.title }}</p>
+                    <p class="text-secondary"><strong>{{ songs[0].album.author.name }}</strong> - {{ songs[0].album.title }}</p>
                     {% endif %}
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <div class="carousel-caption d-none d-md-block">
                         <h5>{{ song.name }}</h5>
                         {% if song.album %}
-                        <p class="text-secondary">{{ song.album.author.name }} - {{ song.album.title }}</p>
+                        <p class="text-secondary"><strong>{{ song.album.author.name }}</strong> - {{ song.album.title }}</p>
                         {% endif %}
                     </div>
                 </div>

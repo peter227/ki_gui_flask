@@ -1,17 +1,30 @@
 from flask import Flask, render_template
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
+
+import albums
+import authors
+import authors_songs
+import genders
+import genres
+import nationalities
+import playlists
+import songs
+import users
+from db import db
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'mysql://user:toor@localhost:3306/ki_gui_db'
+# Pomoci pymysql python driveru v pripade, ze je problem s mysql driverem
+# app.config['SQLALCHEMY_DATABASE_URI'] = \
+#      'mysql+pymysql://user:toor@localhost:3306/ki_gui_db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config.from_mapping(SECRET_KEY="dev")
 
-db = SQLAlchemy(app)
+db.init_app(app)
 migrate = Migrate(app, db)
 
-import songs, albums, authors, genres, nationalities, users, genders, playlists, authors_songs
 
 app.register_blueprint(songs.bp)
 app.register_blueprint(albums.bp)
