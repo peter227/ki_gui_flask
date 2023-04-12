@@ -13,10 +13,8 @@ from app import db
 
 @bp.route("/")
 def index_view():
-    page = request.args.get('page', 1, type=int)
 
-    songs = Songs.query.paginate(page=page, per_page=10)
-
+    songs = Songs.query.all()
     return render_template("songs/index.html", songs=songs, title="SQLAlchemyORM - Songs", name=songs, url='songs.index_view')
 
 
@@ -48,6 +46,17 @@ def update_view(id):
         return redirect(url_for("songs.index_view"))
 
     return render_template("songs/update.html", song=song, albums=albums, genres=genres)
+
+
+@bp.route("/inspect/<id>", methods=["POST", "GET"])
+def inspect_view(id):
+    try:
+        song = db.session.execute(db.select(Songs).filter_by(id_s=id)).first()
+    except Exception:
+        flash("This song does not exist", "error")
+        return redirect(url_for("songs.index_view"))
+
+    return render_template("songs/inspect.html", song=song)
 
 
 @bp.route("/add", methods=["POST", "GET"])

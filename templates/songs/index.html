@@ -1,50 +1,45 @@
-{% extends "paging.html" %}
+{% extends "menu.html" %}
 
 {% block content %}
-<div class="card" style="margin-top: 20px">
-    <div class="card-header text-center">
-        Songs
-    </div>
-    <div class="card-body text-center">
-        <table class="table table-bordered table-responsive" id="songs-table" style="word-break: break-all;margin: auto">
-            <thead>
-                <tr>
-                    <th scope="col" style="padding: 3px">ID</th>
-                    <th scope="col" style="padding: 5px">Song Name</th>
-                    <th scope="col" style="padding: 5px">Genre</th>
-                    <th scope="col" style="padding: 5px">Length</th>
-                    <th scope="col" style="padding: 5px">No. of plays</th>
-                    <th scope="col" style="padding: 5px">Album name</th>
-                    <th scope="col" style="padding: 5px">Release year</th>
-                    <th scope="col" style="padding: 5px">Created at</th>
-                    <th scope="col" style="padding: 10px">Updated at</th>
-                    <th scope="col" style="padding: 10px">Update</th>
-                    <th scope="col" style="padding: 10px">Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for song in songs.items %}
-                <tr>
-                    <td>{{ song.id_s }}</td>
-                    <td style="padding: 2px">{{ song.name }}</td>
-                    <td>{{ song.genre.title }}</td>
-                    <td>{{ song.length }}</td>
-                    <td>{{ "{:,.2f}".format(song.number_of_plays) }}</td>
-                    <td><a href="{{ url_for("albums.inspect_view",id=song.album.id_a) }}" class="link-info author-name">{{ song.album.title }}</a></td>
-                    <td>{{ song.release_year }}</td>
-                    <td style="padding: 5px">{{ song.created_at.strftime("%d.%m.%Y %H:%M:%S")  }}</td>
-                    <td style="padding: 5px">{{ song.updated_at.strftime("%d.%m.%Y %H:%M:%S") }}</td>
-                    <td style="padding: 5px"><a href="{{ url_for("songs.update_view", id=song.id_s) }}" class="btn btn-primary">Update</a></td>
-                    <td style="padding: 5px"><a href="#" class="btn btn-danger" onclick="$('#song-delete--{{ song.id_s }}').submit()">Delete</a></td>
-                    <form action="{{ url_for("songs.delete_record", id=song.id_s)}}" method="POST" id="song-delete--{{ song.id_s }}">
-                    </form>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-<p class="text-left mt-3">
-    <a href="{{ url_for("songs.add_view") }}" class="btn btn-primary">Add song</a>
-</p>
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" style="margin-top: 20px">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            {% for i in range(songs|length) %}
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ i + 1 }}"
+                    aria-label="Slide {{ i }}"></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ songs[0].url_cover }}" class="d-block w-20" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>First slide label</h5>
+                    <p>Some representative placeholder content for the first slide.</p>
+                </div>
+            </div>
+            {% for song in songs %}
+                <div class="carousel-item">
+                    <img src="{{ song.url_cover }}" class="d-block w-20" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Second slide label</h5>
+                        <p>Some representative placeholder content for the second slide.</p>
+                    </div>
+                </div>
+            {% endfor %}
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <p class="text-left mt-3">
+            <a href="{{ url_for("songs.add_view") }}" class="btn btn-primary">Add song</a>
+        </p>
 {% endblock %}

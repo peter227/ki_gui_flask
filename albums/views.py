@@ -43,6 +43,7 @@ def update_view(id):
         album[0].number_of_songs = request.form["number_of_songs"]
         album[0].length_sec = request.form["length_sec"]
         album[0].author_id = request.form["author"]
+        album[0].url_cover = request.form["url_cover"]
         album[0].updated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         album[0].verified = True
         db.session.add(album[0])
@@ -79,11 +80,12 @@ def add_view():
         album_number_of_songs = request.form["number_of_songs"]
         album_length_sec = request.form["length_sec"]
         album_author_id = request.form["author"]
+        album_url_cover = request.form["url_cover"]
         album_created_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         album_updated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         album = Albums(title=album_title, release_year=album_release_year, number_of_songs=album_number_of_songs,
-                       length_sec=album_length_sec, author_id=album_author_id, created_at=album_created_at,
+                       length_sec=album_length_sec, author_id=album_author_id, url_cover=album_url_cover, created_at=album_created_at,
                        updated_at=album_updated_at)
 
         db.session.add(album)

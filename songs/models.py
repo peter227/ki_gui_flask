@@ -13,6 +13,7 @@ class Songs(db.Model):
     album_id = db.Column(db.Integer, db.ForeignKey(Albums.id_a), nullable=True)
     album = db.relationship('Albums', lazy='select', backref=db.backref('Albums', lazy='joined'))
     release_year = db.Column(db.Integer, nullable=True)
+    url_cover = db.Column(db.VARCHAR(2083), nullable=True)
     created_at = db.Column(db.DateTime, nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
 
