@@ -15,7 +15,9 @@ from db import db
 def index_view():
 
     songs = Songs.query.all()
-    return render_template("songs/index.html", songs=songs, title="SQLAlchemyORM - Songs", name=songs, url='songs.index_view')
+    return render_template("songs/index.html",
+                           songs=songs, title="SQLAlchemyORM - Songs",
+                           name=songs, url='songs.index_view')
 
 
 @bp.route("/edit/<id>", methods=["POST", "GET"])
