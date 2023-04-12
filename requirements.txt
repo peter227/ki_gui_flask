@@ -4,10 +4,10 @@ Flask==2.2.3
 itsdangerous==2.1.2
 Jinja2==3.1.2
 MarkupSafe==2.1.2
-pip==22.3.1
-setuptools==65.5.1
+pip==23.0.1
+setuptools==67.6.1
 Werkzeug==2.2.3
-wheel==0.38.4
-
-SQLAlchemy~=2.0.8
+wheel==0.40.0
+SQLAlchemy==2.0.9
 alembic~=1.10.3
+Flask-Migrate==4.0.4
