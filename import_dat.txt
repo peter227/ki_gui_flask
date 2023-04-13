@@ -1,7 +1,7 @@
 # zkopirovani souboru do docker containeru
-docker cp ./ki_gui_db.sql c4f435751266:./
+docker cp ./ki_gui_db.sql dev_mysql:./
 # otevreni mysql command-line clienta v docker containeru
-docker exec -it c4f435751266  mysql -u root -p
+docker exec -it dev_mysql  mysql -u root -p
 
 # v mysql command-line
 USE ki_gui_db
